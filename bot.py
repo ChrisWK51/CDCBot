@@ -6,8 +6,8 @@ import os
 import os.path
 
 bot = commands.Bot(command_prefix='!')
-mylist = os.listdir("./image")
-
+goldList = os.listdir("./image/goldImage")
+sagumelist = os.listdir("./image/Sagume")
     
 @bot.event
 async def on_ready():
@@ -16,6 +16,7 @@ async def on_ready():
     print('------')
     channel = bot.get_channel(783286348144443404)
     await channel.send('少女讀取中...')
+
 
 @bot.event
 async def on_message(message):
@@ -27,9 +28,9 @@ async def on_message(message):
     with open('words/gumLee.txt', 'r' , encoding="utf-8")  as file:
         for line in file:
             if line.strip() in message.content:
-                image = random.choice(mylist)
+                image = random.choice(goldlist)
                 await message.channel.send("咁你有咩高見" )
-                await message.channel.send(file=discord.File("image/" + image))
+                await message.channel.send(file=discord.File("image/goldImage" + image))
                 return
     await bot.process_commands(message)
 
@@ -59,8 +60,14 @@ async def _bot(ctx):
     await ctx.send('the bot is cool.')
 
 @bot.command(name='殺菇')
-async def mushroom(ctx):
+async def mushroom(ctx ):
     await ctx.send('我要殺菇!')
+    image = random.choice(sagumelist)
+    await ctx.send(file=discord.File("image/Sagume/" + image))
+    return
 
 
-bot.run('NzgzMjczMTg1MTkyOTY4MTky.X8YV_w.cOvifl796xVCA2L1P6dn3Dr67D4')
+
+
+
+bot.run('')
