@@ -6,7 +6,7 @@ import json
 import os
 import os.path
 from datetime import datetime as dt
-
+from pytz import timezone as pt
 
 with open('setting.json','r' , encoding="utf-8") as jFile:
     jdata = json.load(jFile)
@@ -52,7 +52,7 @@ class cmd(Cog_Extension):
 
     @commands.command()
     async def help(self,ctx):
-        embed = discord.Embed(title=self.bot.user.name, description=self.bot.description, color=0xC6CFD6)
+        embed = discord.Embed(title=self.bot.user.name, description=f"{self.bot.description} \n 依家呢個殺菇bot有既command", color=0xC6CFD6)
         times = len(jdata["Command"])
         for i in range(times):
             embed.add_field(name=jdata["Command"][i], value=jdata["Use"][i], inline=False)
@@ -80,6 +80,32 @@ class cmd(Cog_Extension):
     async def cool(self , ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send('No, {0.subcommand_passed} is not cool'.format(ctx))
+
+    @commands.command()
+    async def info(self , ctx):
+        embed = discord.Embed(title=self.bot.user.name, 
+            description=f"{self.bot.description}\n\nMe: {self.bot.user.mention}" , color=0xC6CFD6 , 
+        timestamp= dt.utcnow())
+
+        createTime = pt('HongKong').fromutc(self.bot.user.created_at)
+        createTime = createTime.strftime(f'%Y-%m-%d %X (GMT+8) ')
+        currentTime = dt.now()
+        currentTime = currentTime.strftime(f'%Y-%m-%d %X (GMT+8) ')
+        
+        
+        embed.set_author(name="KillMushroomBot Info", icon_url=self.bot.user.avatar_url)
+        embed.set_thumbnail(url=self.bot.user.avatar_url)
+        embed.add_field(name="Created at", value=f"{createTime}", inline=False)
+        embed.add_field(name="KillMushroom.py timestamp", value=f"{currentTime}", inline=False)
+
+        embed.add_field(name="Links", value=jdata["docInfo"], inline=False)
+        embed.add_field(name="‎", value=jdata["botInvite"], inline=False)
+        
+        embed.add_field(name="Server Count", value=len(self.bot.guilds), inline=True)
+        embed.add_field(name="Verison", value=jdata["Version"], inline=True)
+        embed.add_field(name="Language", value="Python", inline=True)
+        embed.set_footer(text=f"created by {self.bot.get_user(int(jdata['OwnerID']))}")
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(cmd(bot))
