@@ -11,14 +11,12 @@ bot = commands.Bot(command_prefix='!' , description="殺菇咩整出黎既殺菇
 
 bot.remove_command('help')
 
-
 @bot.event
 async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
     channel = bot.get_channel(int(jdata["Welcome_Channel"]))
-    await channel.send('少女讀取中...')
 
 
 @bot.command()
@@ -35,6 +33,7 @@ async def unload(ctx , extension):
         await ctx.send(f"Un - Loaded {extension} done")
     else:
         await ctx.send(jdata["LoadPermissionQuote"])
+
 @bot.command()
 async def reload(ctx , extension):
     if ctx.author.id == int(jdata["OwnerID"]) or ctx.author.guild_permissions.administrator:

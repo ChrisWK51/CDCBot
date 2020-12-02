@@ -50,7 +50,7 @@ class cmd(Cog_Extension):
         localTime = time.strftime(f'%Y年%m月%d日 {week} %X (GMT+8) ')
         await ctx.send(f"月都依家既時間係 : {localTime}")
 
-    @commands.command()
+    @commands.command(pass_context=True ,name="help")
     async def help(self,ctx):
         embed = discord.Embed(title=self.bot.user.name, description=f"{self.bot.description} \n 依家呢個殺菇bot有既command", color=0xC6CFD6)
         times = len(jdata["Command"])
