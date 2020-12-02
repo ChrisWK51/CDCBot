@@ -2,14 +2,15 @@ import discord
 from discord.ext import commands
 import os
 import os.path
-
 import json
 with open('setting.json','r' , encoding="utf-8") as jFile:
     jdata = json.load(jFile)
 
-bot = commands.Bot(command_prefix='!' , description="殺菇咩整出黎既殺菇咩bot \n 依家呢個殺菇bot有既command")
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix='!' , description="殺菇咩整出黎既殺菇咩bot \n 依家呢個殺菇bot有既command" , intents=intents)
 
 bot.remove_command('help')
+
 
 @bot.event
 async def on_ready():
