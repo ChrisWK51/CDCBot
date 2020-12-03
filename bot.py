@@ -8,7 +8,6 @@ with open('setting.json','r' , encoding="utf-8") as jFile:
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!' , description="殺菇咩整出黎既殺菇咩bot" , intents=intents)
-
 bot.remove_command('help')
 
 @bot.event

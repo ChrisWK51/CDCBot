@@ -55,24 +55,34 @@ class cmd(Cog_Extension):
         embed = discord.Embed(title=self.bot.user.name, description=f"{self.bot.description} \n 依家呢個殺菇bot有既command", color=0xC6CFD6)
         times = len(jdata["Command"])
         for i in range(times):
-            embed.add_field(name=jdata["Command"][i], value=jdata["Use"][i], inline=False)
+            embed.add_field(name="!" + jdata["Command"][i], value=jdata["Use"][i], inline=False)
         await ctx.send(embed=embed)
 
 
     @commands.command()
     async def add(self , ctx , left : int, right : int):
-        """Adds two numbers together."""
         await ctx.send(left + right)
 
+    @commands.command()
+    async def subtract(self , ctx , left : int, right : int):
+        await ctx.send(left - right)
+
+    @commands.command()
+    async def multiply(self , ctx , left : int, right : int):
+        await ctx.send(left * right)
+    
+    @commands.command()
+    async def divide(self , ctx , left : int, right : int):
+        await ctx.send(left / right)
+
+    @commands.command()
+    async def modulus(self , ctx , left : int, right : int):
+        await ctx.send(left % right)
 
     @commands.command()
     async def roll(self , ctx, dice : str):
         print('------')
-        try:
-            rolls, limit = map(int, dice.split('d'))
-        except Exception:
-            await ctx.send('Format has to be in NdN!')
-            return
+        rolls, limit = map(int, dice.split('d'))
         result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
         await ctx.send(result)
 
@@ -107,5 +117,13 @@ class cmd(Cog_Extension):
         embed.set_footer(text=f"created by {self.bot.get_user(int(jdata['OwnerID']))}")
         await ctx.send(embed=embed)
 
+    @commands.command(name='repeat', aliases=['mimic', 'copy'])
+    async def do_repeat(self, ctx, *, input: str):
+        await ctx.send(input)
+    
+    @commands.command()
+    async def luck(self, ctx):
+        await ctx.send(random.choice(jdata["luckList"]))
+        
 def setup(bot):
     bot.add_cog(cmd(bot))
