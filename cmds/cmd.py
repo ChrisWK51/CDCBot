@@ -73,10 +73,16 @@ class cmd(Cog_Extension):
     
     @commands.command()
     async def divide(self , ctx , left : int, right : int):
+        if (left == 0 or right == 0):
+            await ctx.send("除唔到架 算把啦")
+            return 
         await ctx.send(left / right)
-
+        
     @commands.command()
     async def modulus(self , ctx , left : int, right : int):
+        if (left == 0 or right == 0):
+            await ctx.send("除唔到架 算把啦")
+            return 
         await ctx.send(left % right)
 
     @commands.command()

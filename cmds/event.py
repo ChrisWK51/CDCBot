@@ -33,21 +33,23 @@ class event(Cog_Extension):
         if message.author.bot: 
             return
 
+        if message.author == self.bot.get_user(int(jdata['redTeaId'])):
+            await message.channel.send(f"{message.author.mention}\nhttps://embassies.gov.il/hong-kong/Pages/default.aspx\nhttps://www.gov.uk/world/organisations/british-consulate-general-hong-kong" )
+
         for i in jdata["goldenText"]:  #當段野 有"咁你" "錦鯉"etc 會  trigger 
             if i in message.content:
                 image = random.choice(goldList)
                 await message.channel.send("咁你有咩高見" , file=discord.File("image/goldImage/" + image))
-                return
+                
 
         if message.content in jdata["rubbishWater"]:    #當段野 剩係得"鈴狗""鈴緒on9"會  trigger 
             image = random.choice(on9WaterList)
             await message.channel.send(f"{message.author.mention}", file=discord.File("image/on9Water/" + image))
-            return
+            
 
         if "垃圾殺菇咩" in message.content or "垃圾探女" in message.content: 
             await message.channel.send(f"{message.author.mention} 55ok")
-            return
-
+            
         if "сука" in message.content:
             await message.channel.send("блять")
 
