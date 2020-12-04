@@ -136,18 +136,18 @@ class cmd(Cog_Extension):
 
     @commands.command()
     async def clean(self , ctx, num ):
-        if ctx.author.guild_permissions.administrator and ctx.guild.me.guild_permissions.manage_messages:
+        if ctx.author.guild_permissions.administrator :
           #if num in "all":
           #    await ctx.channel.purge(limit=10000)
           #else:
-          num = int(num)
-          await ctx.channel.purge(limit=num)
-          await ctx.send(f"殺菇咩幫你刪左 {num} 個messages.")
+            if ctx.guild.me.guild_permissions.manage_messages:
+                num = int(num)
+                await ctx.channel.purge(limit=num)
+                await ctx.send(f"殺菇咩幫你刪左 {num} 個messages.")
+            else: 
+                await ctx.send("我冇特權 垃圾探女幫唔到你刪messages")
         else:
-          if not ctx.guild.me.guild_permissions.manage_messages:
-            await ctx.send("我冇特權 垃圾探女幫唔到你刪messages")
-            return
-        await ctx.send(jdata["LoadPermissionQuote"])
+            await ctx.send(jdata["LoadPermissionQuote"])
     
         
 def setup(bot):
