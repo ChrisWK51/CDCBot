@@ -87,8 +87,10 @@ class cmd(Cog_Extension):
 
     @commands.command()
     async def roll(self , ctx, dice : str):
-        print('------')
         rolls, limit = map(int, dice.split('d'))
+        if rolls <= 0  or limit <= 0:
+            await ctx.send("出唔到架啦 算把啦")
+            return
         result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
         await ctx.send(result)
 
@@ -125,11 +127,28 @@ class cmd(Cog_Extension):
 
     @commands.command(name='repeat', aliases=['mimic', 'copy'])
     async def do_repeat(self, ctx, *, input: str):
+        await ctx.message.delete()
         await ctx.send(input)
     
     @commands.command()
     async def luck(self, ctx):
         await ctx.send(random.choice(jdata["luckList"]))
+
+    @commands.command()
+    async def clean(self , ctx, num ):
+        if ctx.author.guild_permissions.administrator and ctx.guild.me.guild_permissions.manage_messages:
+          #if num in "all":
+          #    await ctx.channel.purge(limit=10000)
+          #else:
+          num = int(num)
+          await ctx.channel.purge(limit=num)
+          await ctx.send(f"殺菇咩幫你刪左 {num} 個messages.")
+        else:
+          if not ctx.guild.me.guild_permissions.manage_messages:
+            await ctx.send("我冇特權 垃圾探女幫唔到你刪messages")
+            return
+        await ctx.send(jdata["LoadPermissionQuote"])
+    
         
 def setup(bot):
     bot.add_cog(cmd(bot))
