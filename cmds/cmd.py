@@ -41,10 +41,9 @@ class cmd(Cog_Extension):
         
         return
     
-
     @commands.command()
     async def time(self,ctx):
-        time = dt.now()
+        time = pt('HongKong').fromutc(dt.now())
         
         week = day[time.strftime('%a')]
         localTime = time.strftime(f'%Y年%m月%d日 {week} %X (GMT+8) ')
@@ -107,7 +106,7 @@ class cmd(Cog_Extension):
 
         createTime = pt('HongKong').fromutc(self.bot.user.created_at)
         createTime = createTime.strftime(f'%Y-%m-%d %X (GMT+8) ')
-        currentTime = dt.now()
+        currentTime = pt('HongKong').fromutc(dt.now())
         currentTime = currentTime.strftime(f'%Y-%m-%d %X (GMT+8) ')
         
         
