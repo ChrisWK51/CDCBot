@@ -48,6 +48,21 @@ class cmd(Cog_Extension):
         week = day[time.strftime('%a')]
         localTime = time.strftime(f'%Y年%m月%d日 {week} %X (GMT+8) ')
         await ctx.send(f"月都依家既時間係 : {localTime}")
+        
+    @commands.command(name="0WaterTime")
+    async def zerowatertime(self,ctx):
+        pigWater = ""
+        time = pt('Europe/London').fromutc(dt.now())
+        week = day[time.strftime('%a')]
+        localTime = time.strftime(f'%Y年%m月%d日 {week} %X (GMT) ')
+        if (ctx.author == self.bot.get_user(174912315278229504)):
+          ukHour = int(time.strftime('%H'))
+          if ukHour >= 10  and ukHour <= 14 :
+            pigWater = f"\n起身啦 鈴豬仲訓 {ctx.author.mention}"
+          elif ukHour >= 0 and ukHour  <= 6:
+            pigWater = f"\n鈴豬肯訓未 {ctx.author.mention}"
+        await ctx.send(f"鈴緒帝國依家既時間係 : {localTime + pigWater}")
+
 
     @commands.command(pass_context=True ,name="help")
     async def help(self,ctx):
