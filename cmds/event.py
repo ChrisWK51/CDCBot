@@ -47,13 +47,17 @@ class event(Cog_Extension):
             await message.channel.send(f"{message.author.mention}", file=discord.File("image/on9Water/" + image))
             
 
-        if "垃圾殺菇咩" in message.content or "垃圾探女" in message.content: 
-            await message.channel.send(f"{message.author.mention} 55ok")
+        if "垃圾殺菇咩" in message.content or "垃圾探女" in message.content  or "辣拉探女" in message.content: 
+            emoji = get(self.bot.get_guild(652389840423354378).emojis, name="20201108100642")
+            await message.channel.send(f"{message.author.mention} 55ok {emoji} ")
             
         if "сука" in message.content:
             await message.channel.send("блять")
 
         if "блять" in message.content:
             await message.channel.send("Пошёл нажуй даун ебаный ебал твою блять семью пидорасов СУКА БЛЯТЬ")
+        if message.attachments and message.author == self.bot.get_user(400585510877396992) :
+          emoji = get(self.bot.get_guild(652389840423354378).emojis, name="20201108100642")
+          await message.channel.send(f"{message.author.mention} 三井你有邊日唔係去玩 {emoji}")
 def setup(bot):
     bot.add_cog(event(bot))
