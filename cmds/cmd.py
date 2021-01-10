@@ -7,6 +7,8 @@ import os
 import os.path
 from datetime import datetime as dt
 from pytz import timezone as pt
+from discord.utils import get
+import urllib.request
 
 with open('setting.json','r' , encoding="utf-8") as jFile:
     jdata = json.load(jFile)
@@ -31,15 +33,12 @@ class cmd(Cog_Extension):
         
         image = random.choice(sagumelist)
         await ctx.send('殺菇咩好耶 殺菇咩又中',file=discord.File("image/Sagume/" + image))
-    
 
     @commands.command(name='殺菇')
     async def mushroom(self,ctx ):
         
         image = random.choice(sagumelist)
         await ctx.send('我要殺菇!' , file=discord.File("image/Sagume/" + image))
-        
-        return
     
     @commands.command()
     async def time(self,ctx):
@@ -48,7 +47,7 @@ class cmd(Cog_Extension):
         week = day[time.strftime('%a')]
         localTime = time.strftime(f'%Y年%m月%d日 {week} %X (GMT+8) ')
         await ctx.send(f"月都依家既時間係 : {localTime}")
-        
+
     @commands.command(name="0WaterTime")
     async def zerowatertime(self,ctx):
         pigWater = ""
@@ -71,7 +70,6 @@ class cmd(Cog_Extension):
         for i in range(times):
             embed.add_field(name="!" + jdata["Command"][i], value=jdata["Use"][i], inline=False)
         await ctx.send(embed=embed)
-
 
     @commands.command()
     async def add(self , ctx , left : int, right : int):
@@ -150,19 +148,40 @@ class cmd(Cog_Extension):
 
     @commands.command()
     async def clean(self , ctx, num ):
-        if ctx.author.guild_permissions.administrator :
-          #if num in "all":
-          #    await ctx.channel.purge(limit=10000)
-          #else:
-            if ctx.guild.me.guild_permissions.manage_messages:
-                num = int(num)
-                await ctx.channel.purge(limit=num)
-                await ctx.send(f"殺菇咩幫你刪左 {num} 個messages.")
-            else: 
-                await ctx.send("我冇特權 垃圾探女幫唔到你刪messages")
-        else:
-            await ctx.send(jdata["LoadPermissionQuote"])
+      if ctx.author.guild_permissions.administrator :
+        #if num in "all":
+        #    await ctx.channel.purge(limit=10000)
+        #else:
+        if ctx.guild.me.guild_permissions.manage_messages:
+            num = int(num)
+            await ctx.channel.purge(limit=num)
+            await ctx.send(f"殺菇咩幫你刪左 {num} 個messages.")
+        else: 
+            await ctx.send("我冇特權 垃圾探女幫唔到你刪messages")
+      else:
+          await ctx.send(jdata["LoadPermissionQuote"])
+
+    @commands.command(name="三井")
+    async def threeO(self,ctx):
+      emoji = get(self.bot.get_guild(652389840423354378).emojis, name="20201108100642") 
+      await ctx.send(f"{self.bot.get_user(400585510877396992).mention} 三井你有邊日唔係去玩 {emoji}")
+
+    @commands.command(name="三井好西")
+    async def three0(self,ctx):
+      emoji = get(self.bot.get_guild(652389840423354378).emojis, name="20201108100642") 
+      await ctx.send(f"{self.bot.get_user(400585510877396992).mention} 三井你有邊日唔係食好西 {emoji}")
     
-        
+    @commands.command(name="香港幾度")
+    async def getTodayWeather(self,ctx):
+      tempURL = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=tc'
+      Result = urllib.request.urlopen(tempURL).read().decode()
+      Result = json.loads(Result)
+      temperature = Result["temperature"]["data"][1]["value"]
+      ReturnString ="香港依家既温度係 "
+      ReturnString += str(temperature) +"°" + Result["temperature"]["data"][1]["unit"] +"\n"
+      if (temperature <= 15):
+        ReturnString += f"香港仲未暖返啊 你個閪就暖 {self.bot.get_user(174912315278229504).mention}"
+      await ctx.send(f"{ReturnString}")
+
 def setup(bot):
-    bot.add_cog(cmd(bot))
+    bot.add_cog(cmd(bot)) 
