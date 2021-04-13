@@ -3,6 +3,7 @@ from discord.ext import commands
 import os
 import os.path
 import json
+import keep_alive
 with open('setting.json','r' , encoding="utf-8") as jFile:
     jdata = json.load(jFile)
 
@@ -46,4 +47,5 @@ for filename in os.listdir('./cmds'):
         bot.load_extension(f'cmds.{filename[:-3]}')
 
 if __name__ == '__main__':
+    keep_alive.keep_alive()
     bot.run(jdata["TOKEN"])
