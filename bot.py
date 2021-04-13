@@ -22,24 +22,24 @@ async def on_ready():
 async def load(ctx , extension):
     if ctx.author.id == int(jdata["OwnerID"]) or ctx.author.guild_permissions.administrator:
         bot.load_extension(F'cmds.{extension}')
-        await ctx.send(f"Loaded {extension} done")
+        await ctx.reply(f"Loaded {extension} done")
     else:
-        await ctx.send(jdata["LoadPermissionQuote"])
+        await ctx.reply(jdata["LoadPermissionQuote"])
 @bot.command()
 async def unload(ctx , extension):
     if ctx.author.id == int(jdata["OwnerID"])  or ctx.author.guild_permissions.administrator:
         bot.unload_extension(F'cmds.{extension}')
-        await ctx.send(f"Un - Loaded {extension} done")
+        await ctx.reply(f"Un - Loaded {extension} done")
     else:
-        await ctx.send(jdata["LoadPermissionQuote"])
+        await ctx.reply(jdata["LoadPermissionQuote"])
 
 @bot.command()
 async def reload(ctx , extension):
     if ctx.author.id == int(jdata["OwnerID"]) or ctx.author.guild_permissions.administrator:
         bot.reload_extension(F'cmds.{extension}')
-        await ctx.send(f"Re - Loaded {extension} done")
+        await ctx.reply(f"Re - Loaded {extension} done")
     else:
-        await ctx.send(jdata["LoadPermissionQuote"])
+        await ctx.reply(jdata["LoadPermissionQuote"])
 
 for filename in os.listdir('./cmds'):
     if filename.endswith(".py"):

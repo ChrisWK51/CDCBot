@@ -11,10 +11,10 @@ class cmdErrorHandler(Cog_Extension):
     async def on_command_error(self, ctx, error):
         try:
             index = jdata["Command"].index(ctx.command.name)
-            await ctx.send(jdata["CommandError"][index])
+            await ctx.reply(jdata["CommandError"][index])
         except Exception:
             print(error)
-            await ctx.send("冇呢個指令啊 等下啦")
+            await ctx.reply("冇呢個指令啊 等下啦")
 
 def setup(bot):
     bot.add_cog(cmdErrorHandler(bot))

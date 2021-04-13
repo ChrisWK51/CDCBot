@@ -32,13 +32,13 @@ class cmd(Cog_Extension):
     async def _bot(self,ctx):
         
         image = random.choice(sagumelist)
-        await ctx.send('殺菇咩好耶 殺菇咩又中',file=discord.File("image/Sagume/" + image))
+        await ctx.reply('殺菇咩好耶 殺菇咩又中',file=discord.File("image/Sagume/" + image))
 
     @commands.command(name='殺菇')
     async def mushroom(self,ctx ):
         
         image = random.choice(sagumelist)
-        await ctx.send('我要殺菇!' , file=discord.File("image/Sagume/" + image))
+        await ctx.reply('我要殺菇!' , file=discord.File("image/Sagume/" + image))
     
     @commands.command()
     async def time(self,ctx):
@@ -46,7 +46,7 @@ class cmd(Cog_Extension):
         
         week = day[time.strftime('%a')]
         localTime = time.strftime(f'%Y年%m月%d日 {week} %X (GMT+8) ')
-        await ctx.send(f"月都依家既時間係 : {localTime}")
+        await ctx.reply(f"月都依家既時間係 : {localTime}")
 
     @commands.command(name="0WaterTime")
     async def zerowatertime(self,ctx):
@@ -60,7 +60,7 @@ class cmd(Cog_Extension):
             pigWater = f"\n起身啦 鈴豬仲訓 {ctx.author.mention}"
           elif ukHour >= 0 and ukHour  <= 6:
             pigWater = f"\n鈴豬肯訓未 {ctx.author.mention}"
-        await ctx.send(f"鈴緒帝國依家既時間係 : {localTime + pigWater}")
+        await ctx.reply(f"鈴緒帝國依家既時間係 : {localTime + pigWater}")
 
 
     @commands.command(pass_context=True ,name="help")
@@ -69,47 +69,47 @@ class cmd(Cog_Extension):
         times = len(jdata["Command"])
         for i in range(times):
             embed.add_field(name="!" + jdata["Command"][i], value=jdata["Use"][i], inline=False)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @commands.command()
     async def add(self , ctx , left : int, right : int):
-        await ctx.send(left + right)
+        await ctx.reply(left + right)
 
     @commands.command()
     async def subtract(self , ctx , left : int, right : int):
-        await ctx.send(left - right)
+        await ctx.reply(left - right)
 
     @commands.command()
     async def multiply(self , ctx , left : int, right : int):
-        await ctx.send(left * right)
+        await ctx.reply(left * right)
     
     @commands.command()
     async def divide(self , ctx , left : int, right : int):
         if (left == 0 or right == 0):
-            await ctx.send("除唔到架 算把啦")
+            await ctx.reply("除唔到架 算把啦")
             return 
-        await ctx.send(left / right)
+        await ctx.reply(left / right)
         
     @commands.command()
     async def modulus(self , ctx , left : int, right : int):
         if (left == 0 or right == 0):
-            await ctx.send("除唔到架 算把啦")
+            await ctx.reply("除唔到架 算把啦")
             return 
-        await ctx.send(left % right)
+        await ctx.reply(left % right)
 
     @commands.command()
     async def roll(self , ctx, dice : str):
         rolls, limit = map(int, dice.split('d'))
         if rolls <= 0  or limit <= 0:
-            await ctx.send("出唔到架啦 算把啦")
+            await ctx.reply("出唔到架啦 算把啦")
             return
         result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
-        await ctx.send(result)
+        await ctx.reply(result)
 
     @commands.group(pass_context=True)
     async def cool(self , ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.send('No, {0.subcommand_passed} is not cool'.format(ctx))
+            await ctx.reply('No, {0.subcommand_passed} is not cool'.format(ctx))
 
     @commands.command()
     async def info(self , ctx):
@@ -135,7 +135,7 @@ class cmd(Cog_Extension):
         embed.add_field(name="Verison", value=jdata["Version"], inline=True)
         embed.add_field(name="Language", value="Python", inline=True)
         embed.set_footer(text=f"created by {self.bot.get_user(int(jdata['OwnerID']))}")
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @commands.command(name='repeat', aliases=['mimic', 'copy'])
     async def do_repeat(self, ctx, *, input: str):
@@ -144,7 +144,7 @@ class cmd(Cog_Extension):
     
     @commands.command()
     async def luck(self, ctx):
-        await ctx.send(random.choice(jdata["luckList"]))
+        await ctx.reply(random.choice(jdata["luckList"]))
 
     @commands.command()
     async def clean(self , ctx, num ):
@@ -155,11 +155,11 @@ class cmd(Cog_Extension):
         if ctx.guild.me.guild_permissions.manage_messages:
             num = int(num)
             await ctx.channel.purge(limit=num)
-            await ctx.send(f"殺菇咩幫你刪左 {num} 個messages.")
+            await ctx.reply(f"殺菇咩幫你刪左 {num} 個messages.")
         else: 
-            await ctx.send("我冇特權 垃圾探女幫唔到你刪messages")
+            await ctx.reply("我冇特權 垃圾探女幫唔到你刪messages")
       else:
-          await ctx.send(jdata["LoadPermissionQuote"])
+          await ctx.reply(jdata["LoadPermissionQuote"])
 
     @commands.command(name="三井")
     async def threeO(self,ctx):
@@ -181,7 +181,7 @@ class cmd(Cog_Extension):
       ReturnString += str(temperature) +"°" + Result["temperature"]["data"][1]["unit"] +"\n"
       if (temperature <= 15):
         ReturnString += f"香港仲未暖返啊 你個閪就暖 {self.bot.get_user(174912315278229504).mention}"
-      await ctx.send(f"{ReturnString}")
+      await ctx.reply(f"{ReturnString}")
 
 def setup(bot):
     bot.add_cog(cmd(bot)) 

@@ -35,30 +35,30 @@ class event(Cog_Extension):
             return
 
         if message.author == self.bot.get_user(int(jdata['redTeaId'])):
-            await message.channel.send(f"{message.author.mention}\nhttps://embassies.gov.il/hong-kong/Pages/default.aspx\nhttps://www.gov.uk/world/organisations/british-consulate-general-hong-kong" )
+            await message.reply(f"https://embassies.gov.il/hong-kong/Pages/default.aspx\nhttps://www.gov.uk/world/organisations/british-consulate-general-hong-kong" )
 
         for i in jdata["goldenText"]:  #當段野 有"咁你" "錦鯉"etc 會  trigger 
             if i in message.content:
                 image = random.choice(goldList)
-                await message.channel.send("咁你有咩高見" , file=discord.File("image/goldImage/" + image))
+                await message.reply("咁你有咩高見" , file=discord.File("image/goldImage/" + image))
                 
         if message.content in jdata["rubbishWater"]:    #當段野 剩係得"鈴狗""鈴緒on9"會  trigger 
             image = random.choice(on9WaterList)
-            await message.channel.send(f"{message.author.mention}", file=discord.File("image/on9Water/" + image))
+            await message.reply(file=discord.File("image/on9Water/" + image))
             
         if "垃圾殺菇咩" in message.content or "垃圾探女" in message.content  or "辣拉探女" in message.content: 
             emoji = get(self.bot.get_guild(652389840423354378).emojis, name="20201108100642")
-            await message.channel.send(f"{message.author.mention} 55ok {emoji} ")
+            await message.reply(f"55ok {emoji}")
             
         if "сука" in message.content:
-            await message.channel.send("блять")
+            await message.reply("блять")
 
         if "блять" in message.content:
-            await message.channel.send("Пошёл нажуй даун ебаный ебал твою блять семью пидорасов СУКА БЛЯТЬ")
+            await message.reply("Пошёл нажуй даун ебаный ебал твою блять семью пидорасов СУКА БЛЯТЬ")
 
         if message.attachments and message.author == self.bot.get_user(400585510877396992) :
           emoji = get(self.bot.get_guild(652389840423354378).emojis, name="20201108100642")
-          await message.channel.send(f"{message.author.mention} 三井你有邊日唔係去玩同食好西 {emoji}")
+          await message.reply(f"三井你有邊日唔係去玩同食好西 {emoji}")
           
 def setup(bot):
     bot.add_cog(event(bot))

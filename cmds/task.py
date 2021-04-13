@@ -35,12 +35,12 @@ class Task(Cog_Extension):
     @commands.command(name="setchannel")
     async def set_channel(self, ctx , ch:int):
         self.channel = self.bot.get_channel(ch)
-        await ctx.send(f"Set Channel: {self.channel.mention}")
+        await ctx.reply(f"Set Channel: {self.channel.mention}")
     
     @commands.command()
     async def set_time(self, ctx, time):
         if int(time) > 2359 or int(time) < 0:
-              await ctx.send("用錯左啊 收皮啦")
+              await ctx.reply("用錯左啊 收皮啦")
               return 
         ##self.counter = 0 
         with open('setting.json','r' , encoding="utf-8") as jFile:
@@ -48,7 +48,7 @@ class Task(Cog_Extension):
         jdata['time'] = time
         with open('setting.json','w' , encoding="utf-8") as jFile:
             json.dump(jdata,jFile,indent=4)
-        await ctx.send(f"Time successfully set")
+        await ctx.reply(f"Time successfully set")
 
 def getTodayWeather():
     URL = 'http://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=flw&lang=tc'
