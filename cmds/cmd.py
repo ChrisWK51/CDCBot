@@ -139,7 +139,8 @@ class cmd(Cog_Extension):
 
     @commands.command(name='repeat', aliases=['mimic', 'copy'])
     async def do_repeat(self, ctx, *, input: str):
-        await ctx.message.delete()
+        if ctx.guild.me.guild_permissions.manage_messages:
+            await ctx.message.delete()
         await ctx.send(input)
     
     @commands.command()
