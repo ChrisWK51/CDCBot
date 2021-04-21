@@ -37,6 +37,10 @@ class event(Cog_Extension):
         if message.author == self.bot.get_user(int(jdata['redTeaId'])):
             await message.reply(f"https://embassies.gov.il/hong-kong/Pages/default.aspx\nhttps://www.gov.uk/world/organisations/british-consulate-general-hong-kong" )
 
+
+        if message.content == "<:20200925124257:759096369985224706>" and message.author == self.bot.get_user(174912315278229504) :
+            await message.reply(f"<:20200925124257:759096369985224706>")
+        
         for i in jdata["goldenText"]:  #當段野 有"咁你" "錦鯉"etc 會  trigger 
             if i in message.content:
                 image = random.choice(goldList)
