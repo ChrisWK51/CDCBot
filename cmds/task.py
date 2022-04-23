@@ -40,7 +40,7 @@ class Task(Cog_Extension):
     @commands.command()
     async def set_time(self, ctx, time):
         if int(time) > 2359 or int(time) < 0:
-              await ctx.reply("用錯左啊 收皮啦")
+              await ctx.reply("用錯左啊")
               return 
         ##self.counter = 0 
         with open('setting.json','r' , encoding="utf-8") as jFile:
