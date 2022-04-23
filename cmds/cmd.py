@@ -181,7 +181,7 @@ class cmd(Cog_Extension):
       ReturnString ="香港依家既温度係 "
       ReturnString += str(temperature) +"°" + Result["temperature"]["data"][1]["unit"] +"\n"
       if (temperature <= 15):
-        ReturnString += f"香港仲未暖返啊 你個閪就暖 {self.bot.get_user(174912315278229504).mention}"
+        ReturnString += f"香港仲未暖返啊 你就暖 {self.bot.get_user(174912315278229504).mention}"
       await ctx.reply(f"{ReturnString}")
 
 def setup(bot):
